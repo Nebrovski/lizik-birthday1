@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>С днём рождения, Лиза!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #fff;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3em;
+      animation: glow 2s infinite alternate;
+    }
+    p {
+      font-size: 1.5em;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff6, 0 0 30px #f06; }
+      to   { text-shadow: 0 0 20px #ff0, 0 0 30px #f39, 0 0 40px #f06; }
+    }
+    .btn {
+      margin-top: 20px;
+      padding: 15px 30px;
+      background: #ff4081;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2em;
+      cursor: pointer;
+      color: #fff;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #f50057;
+      transform: scale(1.1);
+    }
+    .heart {
+      position: absolute;
+      color: #ff4081;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+    }
+    @keyframes float {
+      from { transform: translateY(100vh) scale(1); opacity: 1; }
+      to   { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+    }
+    /* Сюрприз-текст */
+    #surprise {
+      font-size: 2em;
+      margin-top: 30px;
+      white-space: pre-wrap;
+      min-height: 3em;
+    }
+    /* Курсор */
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: #fff;
+      margin-left: 2px;
+      animation: blink 0.7s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      50.01%, 100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 🎶 Музыка (включается после клика) -->
+  <audio id="bg-music" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+  </audio>
+
+  <h1>🎉 С днём рождения, Лизок! 🎉</h1>
+  <p>
+    Ты освещаешь всё вокруг своей улыбкой 🌟<br>
+    Пусть счастье, любовь и вдохновение всегда будут рядом 💖<br>
+    А каждый день приносит тебе новые чудеса ✨
+  </p>
+  <button class="btn" onclick="showSurprise()">💌 Нажми для сюрприза</button>
+
+  <!-- Сюрприз с печатающимся текстом -->
+  <div id="surprise"><span id="typed"></span><span class="cursor"></span></div>
+
+  <script>
+    function showSurprise() {
+      // Запуск музыки
+      let music = document.getElementById("bg-music");
+      music.play();
+
+      // Текст для печати
+      let text = "✨ Лизок, ты самое яркое чудо этого дня! 🌸💖🎂 ✨";
+      let typed = document.getElementById("typed");
+      let cursor = document.querySelector(".cursor");
+      typed.innerHTML = "";
+      let i = 0;
+
+      function typeWriter() {
+        if (i < text.length) {
+          typed.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, 100); // скорость печати
+        } else {
+          cursor.style.display = "inline-block"; // курсор мигает после окончания
+        }
+      }
+      typeWriter();
+    }
+
+    // Создание плавающих сердечек
+    setInterval(() => {
+      let heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.fontSize = Math.random() * 20 + 20 + "px";
+      heart.innerHTML = "💖";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 500);
+  </script>
+</body>
+</html>
